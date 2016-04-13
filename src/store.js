@@ -5,16 +5,17 @@ export default class Store extends EventEmitter {
   constructor(dispatcher) {
     super();
     this.count = 0;
-    dispatcher.on('plus', this.onChangeCount.bind(this));
-    dispatcher.on('minus', this.onChangeCount.bind(this));
+    dispatcher.on('updateCounter', this.onChangeCount.bind(this));
   }
 
-  getCount() {
-    return this.count;
+  getState() {
+    return {
+      count: this.count
+    };
   }
 
-  onChangeCount(count) {
-    this.count = count;
+  onChangeCount(payload) {
+    this.count = this.count + payload.value;
     this.emit('change');
   }
 }

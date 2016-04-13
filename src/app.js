@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import ActionCreator from './action';
 import Store from './store';
 import EventEmitter from './event';
+import Counter from './components/Counter';
 
 const dispatcher = new EventEmitter();
 const action = new ActionCreator(dispatcher);
@@ -19,28 +20,25 @@ class App extends React.Component {
   }
 
   render() {
+    const { count } = this.state;
     return (
-      <div>
-        <p>{this.state.count}</p>
-        <button onClick={this.plus.bind(this)}>+</button>
-        <button onClick={this.minus.bind(this)}>-</button>
-      </div>
+      <Counter count={count}
+        onClickMinus={this.handleMinus.bind(this)}
+        onClickPlus={this.handlePlus.bind(this)} />
     );
   }
 
-  plus() {
+  handlePlus() {
     this.props.action.plusCounter();
   }
 
-  minus() {
+  handleMinus() {
     this.props.action.minusCounter();
   }
 
   _onChange() {
     const { store } = this.props;
-    this.setState({
-      count: store.getCount()
-    });
+    this.setState(store.getState());
   }
 
 }
