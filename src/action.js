@@ -1,3 +1,5 @@
+import { UPDATE_COUNTER } from './constants';
+
 export default class ActionCreator {
 
   constructor(dispatcher) {
@@ -5,13 +7,13 @@ export default class ActionCreator {
   }
 
   plusCounter() {
-    this.dispatcher.emit('updateCounter', {
+    this.dispatcher.emit(UPDATE_COUNTER, {
       value: 1
     });
   }
 
   minusCounter() {
-    this.dispatcher.emit('updateCounter', {
+    this.dispatcher.emit(UPDATE_COUNTER, {
       value: -1
     });
   }

@@ -1,21 +1,22 @@
 import EventEmitter from './event';
+import { UPDATE_COUNTER } from './constants';
 
 export default class Store extends EventEmitter {
 
   constructor(dispatcher) {
     super();
-    this.count = 0;
-    dispatcher.on('updateCounter', this.onChangeCount.bind(this));
+    this._count = 0;
+    dispatcher.on(UPDATE_COUNTER, this.onUpdateCounter.bind(this));
   }
 
   getState() {
     return {
-      count: this.count
+      count: this._count
     };
   }
 
-  onChangeCount(payload) {
-    this.count = this.count + payload.value;
+  onUpdateCounter(payload) {
+    this._count = this._count + payload.value;
     this.emit('change');
   }
 }
