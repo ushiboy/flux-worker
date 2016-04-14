@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import Counter from './components/Counter';
 import Dispatcher from './dispatcher';
 
-const dispatcher = new Dispatcher('./backend.js');
+const dispatcher = new Dispatcher('./scripts/backend.js');
 
 const action = {
 
@@ -32,8 +32,8 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const { state, dispatcher } = props;
-    this.state = state || { count: 0 };
+    const { dispatcher } = props;
+    this.state = {};
 
     dispatcher.on('change', state => {
       this.setState(state);
@@ -42,6 +42,9 @@ class App extends React.Component {
 
   render() {
     const { count } = this.state;
+    if (typeof(count) === 'undefined') {
+      return null;
+    }
     return (
       <Counter count={count}
         onClickMinus={this.handleMinus.bind(this)}
@@ -58,6 +61,7 @@ class App extends React.Component {
   }
 
 }
+
 render(
   <App action={action} dispatcher={dispatcher} />,
   document.getElementById('app')

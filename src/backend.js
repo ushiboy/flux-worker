@@ -5,12 +5,13 @@ const state = {
 };
 
 onmessage = evt => {
-  const action = JSON.parse(evt.data);
-  console.log(action);
-  postMessage(JSON.stringify({ state: store(state, action) }));
+  const action = evt.data;
+  postMessage({ state: store(state, action) });
+  //const action = JSON.parse(evt.data);
+  //postMessage(JSON.stringify({ state: store(state, action) }));
 };
 
-function store(state, action) {
+function store(state, action = {}) {
   const { type, payload } = action;
   switch (type) {
     case UPDATE_COUNTER:
@@ -24,3 +25,6 @@ function updateCounter(state, payload) {
   state.count += payload.value;
   return state;
 }
+
+// initialzie
+postMessage({ state: store(state) });

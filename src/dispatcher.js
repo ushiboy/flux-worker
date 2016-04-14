@@ -6,7 +6,8 @@ export default class Dispatcher extends EventEmitter {
     super();
     this._worker = new Worker(scriptPath);
     this._worker.onmessage = evt => {
-      const { state } = JSON.parse(evt.data);
+      // const { state } = JSON.parse(evt.data);
+      const { state } = evt.data;
       /**
        * FIXME Dispatcherではなくなっているような..
        */
@@ -15,7 +16,8 @@ export default class Dispatcher extends EventEmitter {
   }
 
   dispatch(action) {
-    this._worker.postMessage(JSON.stringify(action));
+    // this._worker.postMessage(JSON.stringify(action));
+    this._worker.postMessage(action);
   }
 
 }
