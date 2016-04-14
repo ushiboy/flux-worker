@@ -10,7 +10,9 @@ var gulp = require('gulp')
 , webpack = require('webpack')
 , bundler = webpack({
   entry: {
-    'app': './src/app.js'
+    'app': './src/app.js',
+    'frontend': './src/frontend.js',
+    'backend': './src/backend.js'
   },
   devtool: 'inline-source-map',
   output: {
