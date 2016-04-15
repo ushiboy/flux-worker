@@ -21,5 +21,6 @@ const state = {
 onmessage = evt => {
   postMessage(store(state, evt.data));
 };
+
 // initialize
 postMessage(state);
