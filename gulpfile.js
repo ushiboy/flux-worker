@@ -12,7 +12,9 @@ var gulp = require('gulp')
   entry: {
     'app': './src/app.js',
     'frontend': './src/frontend.js',
-    'backend': './src/backend.js'
+    'backend': './src/backend.js',
+    'simple/front': './src/simple/front.js',
+    'simple/back': './src/simple/back.js'
   },
   devtool: 'inline-source-map',
   output: {
