@@ -7,6 +7,8 @@ var gulp = require('gulp')
 , connect = require('connect')
 , serveStatic = require('serve-static')
 , connectLiveReload = require('connect-livereload')
+, proxyMiddleware = require('http-proxy-middleware')
+, runApiServer = require('./fixture')
 , webpack = require('webpack')
 , bundler = webpack({
   entry: {
@@ -50,10 +52,18 @@ gulp.task('js:dev', cb => {
 
 gulp.task('serve', () => {
   var port = process.env.PORT || 3000;
+  runApiServer(3001);
+
   $.livereload.listen();
   connect()
   .use(connectLiveReload())
   .use(serveStatic(distDir))
+  .use(proxyMiddleware([
+    '/api'
+  ], {
+    target: 'http://localhost:' + 3001,
+    changeOrigin: true
+  }))
   .listen(port);
 });
 
